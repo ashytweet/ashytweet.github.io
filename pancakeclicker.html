@@ -58,20 +58,35 @@
     <p id="pc">Pancakes Clicked=</p>
     <p>This is a fun ineractive game like cookie clicker. But you work harder for your money. <br>I will update the game
         but right now it is not working. </p>
-
+    <p id="Start">Start</p>
 </body>
 
 
 </html>
 
 <script>
+    var Starttoggle= true
     
+    document.getElementById("Start").addEventListener("click",StopStartAutoclick)
     var NumberPressed = 0
     document.getElementById("bpc").addEventListener("click", increaseClick)
+    setInterval(update, 500)
+    function update() {
+      
+        if (Starttoggle === true){
+            increaseClick()
+        }
+    }
+
+
 
     function increaseClick() {
         NumberPressed = NumberPressed + 1
 
         document.getElementById("pc").innerText = "Pancakes Clicked = " + NumberPressed
     }
+    function StopStartAutoclick(){
+       Starttoggle=false 
+    }
+
 </script>
