@@ -2,19 +2,96 @@
 <html>
 
 <head>
+
     <style>
+        
+        p {
+            clear: both;
+        }
+
+        .buttonContainer {
+            max-width: fit-content;
+            float: left;
+            padding-right=0px
+        }
+
+        #bpc:active {
+            width: 350px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+        }
+
+        #bpc {
+            width: 300px;
+            padding-right: 50px;
+            padding-bottom: 50px;
+            float: left;
+        }
+
+       .upgradeImage{
+           height:1em;
+           float:left;
+       }
+        #Upgradeplus2:hover {
+            background-color: gray;
+            color: floralwhite;
+
+        }
+
+
+        #Upgradeplus10:hover {
+            background-color: dimgrey;
+            color: floralwhite;
+        }
+
+        #Upgradeplus100:hover {
+            background-color: dimgrey;
+            color: floralwhite;
+        }
+
+        #Start:hover {
+            background-color: dimgrey;
+            color: floralwhite;
+        }
+
         #pc {
-            color: rgb(101, 247, 184);
+            font-size: 250%
+        }
+
+        #Upgradeplus100 {
+            color: rgb(26, 119, 212);
+            background-color: violet;
+            font-size: 200%;
+        }
+
+        #Upgradeplus10 {
+            color: deeppink;
+            background-color: springgreen;
+            font-size: 200%;
+        }
+
+        #Upgradeplus2 {
+            background-color:greenyellow;
+            color: darkorchid;
+            font-size: 200%;
+        }
+
+        #Start {
+            background-color: royalblue;
+            color: springgreen;
+            font-size: 150%;
+        }
+
+        #pc {
+            color: rgb(30, 100, 70);
 
         }
 
         body {
             color: dodgerblue;
+            background-color:powderblue;
         }
 
-        #bpc {
-            padding-top: 50px;
-        }
 
         ul {
             list-style-type: none;
@@ -39,6 +116,22 @@
         li a:hover {
             background-color: #111;
         }
+        #Infofor2{
+            background-color:darkblue;
+            color:fuchsia;
+            font-family: "Times New Roman", Fantasy, serif;
+            font-size: 20px; 
+            display: none;
+            position:absolute; 
+        }
+        #Infofor10{
+            background-color:darkblue;
+            color:fuchsia;
+            font-family: "Times New Roman", Fantasy, serif;
+            font-size: 20px; 
+            display: none;
+            position:absolute; 
+        }
     </style>
 
     <title>Pancake Clicker</title>
@@ -46,6 +139,7 @@
 </head>
 
 <body>
+    
     <ul>
         <li><a class="active" href="index.html">Home</a></li>
         <li><a href="#news">News</a></li>
@@ -55,38 +149,164 @@
 
 
     <img id="bpc" src="https://cdn1.vectorstock.com/i/thumb-large/10/60/one-plain-pancakes-vector-21271060.jpg">
-    <p id="pc">Pancakes Clicked=</p>
+    <div class="buttonContainer">
+        <div id="pc">Pancakes Clicked=</div>
+
+        <div id="Start">Stop</div>
+
+         
+        <div id="Upgradeplus2" >
+           
+            <img class="upgradeImage" src="https://image.emojipng.com/542/10783542.jpg">
+            Click Upgrade by 2 Cost = 50
+  <div id="Infofor2">Clicks once per 10 sec</div>
+            
+        </div>
+
+
+        <div id="Upgradeplus10">
+            <img class="upgradeImage"  id="Brother" src="brother.jpg"> 
+            Click Upgrade by 10 Cost = 5000 
+        <div id="Infofor10">Your brothers make pancakes</div>
+        </div>
+        
+            <div id="Upgradeplus100">
+               <img class="upgradeImage" id="Furnace" src="furnace.jpg">
+                Click Upgrade by 100 Cost = 50000 
+            </div>
+
+    </div>
+   
+
+
+
+
     <p>This is a fun ineractive game like cookie clicker. But you work harder for your money. <br>I will update the game
-        but right now it is not working. </p>
-    <p id="Start">Start</p>
+        but right now it is not working.You can click and do upgrades but it is not offline or saved so you will lose
+        your progress. And I will work on getting multiple upgrades for one thing
+        and the auto clicker. </p>
 </body>
 
 
 </html>
 
 <script>
-    var Starttoggle= true
-    
-    document.getElementById("Start").addEventListener("click",StopStartAutoclick)
+    //todo list
+    //make the autoclicker cost clicks
+    //upgrades connect to the autoclicker when purchased
+    var Starttoggle = false
+    var Upgradeplus2 = false
+    var Upgradeplus10 = false
+    var Upgradeplus100 = false
+    var clickpersec = 0
+    var increaseclickfor2cost = 50
+    var costamountfor2 = 2
+    var increaseclickfor10cost = 10
+    var costamountfor10 = 5000
+    var increaseclickfor100cost = 100
+    var costamountfor100 = 50000
+    document.getElementById("Upgradeplus2").addEventListener("click", increaseClickby2)
+    document.getElementById("Start").addEventListener("click", StopStartAutoclick)
+    document.getElementById("Upgradeplus10").addEventListener("click", increaseClickby10)
+    document.getElementById("Upgradeplus2").addEventListener("mouseleave", hideupgradetotip)
+    document.getElementById("Upgradeplus2").addEventListener("mouseenter", showupgradetotip)
+    document.getElementById("Upgradeplus10").addEventListener("mouseleave", hideupgradetotip)
+    document.getElementById("Upgradeplus10").addEventListener("mouseenter", showupgradetotip)
+
+    document.getElementById("Upgradeplus100").addEventListener("click", increaseClickby100)
     var NumberPressed = 0
     document.getElementById("bpc").addEventListener("click", increaseClick)
-    setInterval(update, 500)
+    //set the interval to change the time for the clicks with upgrades
+    setInterval(update, 5000)
     function update() {
-      
-        if (Starttoggle === true){
-            increaseClick()
-        }
+
+
+        NumberPressed = NumberPressed + clickpersec
+        document.getElementById("pc").innerText = "Pancakes Clicked = " + NumberPressed
     }
 
 
 
     function increaseClick() {
-        NumberPressed = NumberPressed + 1
 
+        NumberPressed = NumberPressed + 1
         document.getElementById("pc").innerText = "Pancakes Clicked = " + NumberPressed
+
+
+
     }
-    function StopStartAutoclick(){
-       Starttoggle=false 
+    function showupgradetotip(){
+            document.getElementById("Infofor2").style.display="inline"
     }
+    function hideupgradetotip(){
+        document.getElementById("Infofor2").style.display="none"
+    }
+    function showupgradetotip(){
+            document.getElementById("Infofor10").style.display="inline"
+    }
+    function hideupgradetotip(){
+        document.getElementById("Infofor10").style.display="none"
+    }
+    
+    function StopStartAutoclick() {
+        if (Starttoggle === true) {
+            document.getElementById("Start").innerText = "Start"
+            Starttoggle = false
+        } else {
+            document.getElementById("Start").innerText = "Stop"
+            Starttoggle = true
+        }
+
+
+
+    }
+
+    function increaseClickby2() {
+
+        if (NumberPressed >= increaseclickfor2cost) {
+            Upgradeplus2 = true
+            clickpersec = clickpersec + costamountfor2
+            NumberPressed = NumberPressed - increaseclickfor2cost
+            document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
+            document.getElementById("Upgradeplus2").innerText = "Click times 2"
+            increaseclickfor2cost = increaseclickfor2cost * 2
+
+        } else {
+            Upgradeplus2 = false
+            document.getElementById("Upgradeplus2").innerText = "Click Upgrade by 2 Cost =" + increaseclickfor2cost
+        }
+
+
+    }
+
+    function increaseClickby10() {
+
+        if (NumberPressed >= costamountfor10) {
+            Upgradeplus10 = true
+            clickpersec = clickpersec + increaseclickfor10cost
+            NumberPressed = NumberPressed - costamountfor10
+            document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
+            document.getElementById("Upgradeplus10").innerText = "Click times 10"
+            costamountfor10 = costamountfor10 * 2
+        } else {
+            Upgradeplus10 = false
+            document.getElementById("Upgradeplus10").innerText = "Click Upgrade by 10 Cost =" + costamountfor10
+        }
+    }
+    function increaseClickby100() {
+
+        if (NumberPressed >= costamountfor100) {
+            Upgradeplus10 = true
+            clickpersec = clickpersec + increaseClickby100
+            NumberPressed = NumberPressed + increaseClickby100
+            document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
+            document.getElementById("Upgradeplus100").innerText = "Click times 100"
+            costamountfor100 = costamountfor100 * 2
+        } else {
+            Upgradeplus10 = false
+            document.getElementById("Upgradeplus100").innerText = "Click Upgrade by 100 Cost =" + amountcostby100
+        }
+    }
+
 
 </script>
