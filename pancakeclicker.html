@@ -116,15 +116,7 @@
         li a:hover {
             background-color: #111;
         }
-        #Infofor2{
-            background-color:darkblue;
-            color:fuchsia;
-            font-family: "Times New Roman", Fantasy, serif;
-            font-size: 20px; 
-            display: none;
-            position:absolute; 
-        }
-        #Infofor10{
+        .Info{
             background-color:darkblue;
             color:fuchsia;
             font-family: "Times New Roman", Fantasy, serif;
@@ -159,7 +151,7 @@
            
             <img class="upgradeImage" src="https://image.emojipng.com/542/10783542.jpg">
             Click Upgrade by 2 Cost = 50
-  <div id="Infofor2">Clicks once per 10 sec</div>
+  <div class="Info" id="Infofor2">Clicks once per 10 sec</div>
             
         </div>
 
@@ -167,12 +159,13 @@
         <div id="Upgradeplus10">
             <img class="upgradeImage"  id="Brother" src="brother.jpg"> 
             Click Upgrade by 10 Cost = 5000 
-        <div id="Infofor10">Your brothers make pancakes</div>
+        <div class="Info"  id="Infofor10">Your brothers make pancakes</div>
         </div>
         
             <div id="Upgradeplus100">
                <img class="upgradeImage" id="Furnace" src="furnace.jpg">
                 Click Upgrade by 100 Cost = 50000 
+                <div class="Info"  id="Infofor100">You have huge furnaces making pancakes</div>
             </div>
 
     </div>
@@ -208,21 +201,23 @@
     document.getElementById("Upgradeplus2").addEventListener("click", increaseClickby2)
     document.getElementById("Start").addEventListener("click", StopStartAutoclick)
     document.getElementById("Upgradeplus10").addEventListener("click", increaseClickby10)
-    document.getElementById("Upgradeplus2").addEventListener("mouseleave", hideupgradetotip)
-    document.getElementById("Upgradeplus2").addEventListener("mouseenter", showupgradetotip)
-    document.getElementById("Upgradeplus10").addEventListener("mouseleave", hideupgradetotip)
-    document.getElementById("Upgradeplus10").addEventListener("mouseenter", showupgradetotip)
+    document.getElementById("Upgradeplus2").addEventListener("mouseleave", hideupgradetotipfor2)
+    document.getElementById("Upgradeplus2").addEventListener("mouseenter", showupgradetotipfor2)
+    document.getElementById("Upgradeplus10").addEventListener("mouseleave", hideupgradetotipfor10)
+    document.getElementById("Upgradeplus10").addEventListener("mouseenter", showupgradetotipfor10)
+    document.getElementById("Upgradeplus100").addEventListener("mouseleave", hideupgradetotipfor100)
+    document.getElementById("Upgradeplus100").addEventListener("mouseenter", showupgradetotipfor100)
 
     document.getElementById("Upgradeplus100").addEventListener("click", increaseClickby100)
     var NumberPressed = 0
     document.getElementById("bpc").addEventListener("click", increaseClick)
     //set the interval to change the time for the clicks with upgrades
-    setInterval(update, 5000)
+    setInterval(update, 10)
     function update() {
 
 
-        NumberPressed = NumberPressed + clickpersec
-        document.getElementById("pc").innerText = "Pancakes Clicked = " + NumberPressed
+        NumberPressed = NumberPressed + (clickpersec /1000)
+        document.getElementById("pc").innerText = "Pancakes Clicked = " +Math.floor( NumberPressed)
     }
 
 
@@ -230,22 +225,28 @@
     function increaseClick() {
 
         NumberPressed = NumberPressed + 1
-        document.getElementById("pc").innerText = "Pancakes Clicked = " + NumberPressed
+        document.getElementById("pc").innerText = "Pancakes Clicked = " +  Math.floor( NumberPressed)
 
 
 
     }
-    function showupgradetotip(){
+    function showupgradetotipfor2(){
             document.getElementById("Infofor2").style.display="inline"
     }
-    function hideupgradetotip(){
+    function hideupgradetotipfor2(){
         document.getElementById("Infofor2").style.display="none"
     }
-    function showupgradetotip(){
+    function showupgradetotipfor10(){
             document.getElementById("Infofor10").style.display="inline"
     }
-    function hideupgradetotip(){
+    function hideupgradetotipfor10(){
         document.getElementById("Infofor10").style.display="none"
+    }
+    function showupgradetotipfor100(){
+            document.getElementById("Infofor100").style.display="inline"
+    }
+    function hideupgradetotipfor100(){
+        document.getElementById("Infofor100").style.display="none"
     }
     
     function StopStartAutoclick() {
@@ -265,11 +266,11 @@
 
         if (NumberPressed >= increaseclickfor2cost) {
             Upgradeplus2 = true
-            clickpersec = clickpersec + costamountfor2
+            clickpersec = clickpersec + costamountfor2 
             NumberPressed = NumberPressed - increaseclickfor2cost
             document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
-            document.getElementById("Upgradeplus2").innerText = "Click times 2"
-            increaseclickfor2cost = increaseclickfor2cost * 2
+            document.getElementById("Upgradeplus2").innerText = "Click Upgrade by 2 Cost =" + increaseclickfor2cost
+            increaseclickfor2cost = increaseclickfor2cost *2
 
         } else {
             Upgradeplus2 = false
@@ -286,7 +287,7 @@
             clickpersec = clickpersec + increaseclickfor10cost
             NumberPressed = NumberPressed - costamountfor10
             document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
-            document.getElementById("Upgradeplus10").innerText = "Click times 10"
+            document.getElementById("Upgradeplus10").innerText = "Click Upgrade by 10 Cost =" + costamountfor10
             costamountfor10 = costamountfor10 * 2
         } else {
             Upgradeplus10 = false
@@ -300,7 +301,7 @@
             clickpersec = clickpersec + increaseClickby100
             NumberPressed = NumberPressed + increaseClickby100
             document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
-            document.getElementById("Upgradeplus100").innerText = "Click times 100"
+            document.getElementById("Upgradeplus100").innerText = "Click Upgrade by 100 Cost =" + amountcostby100
             costamountfor100 = costamountfor100 * 2
         } else {
             Upgradeplus10 = false
