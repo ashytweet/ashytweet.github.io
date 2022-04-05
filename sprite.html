@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+    img{display:none;}
+</style>
+</head>
+
+<body>
+    <canvas id="canvas" width="2000" height="1020"></canvas>
+    <img id="bill" src="maker-mv-pokemon-sprite.png">
+    <img id="town" src="https://i1.sndcdn.com/artworks-9U1DnSJITOfyx3pB-F3yDNQ-t500x500.jpg">
+</body>
+<script>
+    var sy = 406
+    var sx = 300
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    var img
+    var x = 100
+    var y = 100
+    var a = false
+    var s = false
+    var d = false
+    var w = false
+    var character = {
+        walkingrightx: [230, 300, 370, 300],
+        walkingrighty: [589, 589, 589, 589],
+        walkingleftx: [230, 300, 370, 300],
+        walkinglefty: [497, 497, 497, 497],
+        walkingdownx: [230, 300, 370, 300],
+        walkingdowny: [406, 406, 406, 406],
+        walkingupx: [230, 300, 370, 300],
+        walkingupy: [680, 680, 680, 680],
+    }
+    var spriteNumber = 0
+    window.onload = function () {
+
+        img = document.getElementById("bill");
+        bakcground=document.getElementById("town")
+        setInterval(dance, 200)
+        document.addEventListener('keydown', keydown)
+        document.addEventListener('keyup', keyup)
+        keyup()
+
+
+    }
+    function keydown(e) {
+        if (e.key === 'd') {
+                d= true
+        }
+        if (e.key === 'a') {
+                a = true
+        }
+        if (e.key === 's') {
+                s=true
+        }
+        if (e.key === 'w') {
+            w=true
+        }
+    }
+
+    function dance() {
+
+        
+        spriteNumber = spriteNumber + 1
+        if (spriteNumber === 4) {
+            spriteNumber = 0
+        }
+        x = x + 0
+        y = y + 0
+        if (w) {
+            y = y - 10
+            sx = character.walkingupx[spriteNumber],
+                sy = character.walkingupy[spriteNumber]
+        }
+        if (a) {
+            x = x - 10
+            sx = character.walkingleftx[spriteNumber]
+            sy = character.walkinglefty[spriteNumber]
+        }
+        if (s) {
+            y = y + 10
+            sx = character.walkingdownx[spriteNumber]
+            sy = character.walkingdowny[spriteNumber]
+        }
+        if (d) {
+            x = x + 10
+            sx = character.walkingrightx[spriteNumber]
+            sy = character.walkingrighty[spriteNumber]
+        }
+        ctx.clearRect(0, 0, 2000, 1020);
+        // ctx.fillRect(x, y, 2, 2)
+        ctx.drawImage(town,0,0,1000,1010)
+        ctx.drawImage(img, sx, sy, 55, 60, x, y, 50, 50);
+    }
+    function keyup(e) {
+        if (e.key === 'd') {
+                d= false
+                sx=character.walkingrightx[1]
+            sy=character.walkingrighty[1]
+        }
+        if (e.key === 'a') {
+                a = false
+                sx=character.walkingleftx[1]
+            sy=character.walkinglefty[1]
+        }
+        if (e.key === 's') {
+                s=false
+                sx=character.walkingdownx[1]
+            sy=character.walkingdowny[1]
+        }
+        if (e.key === 'w') {
+            w=false
+            sx=character.walkingupx[1]
+            sy=character.walkingupy[1]
+        }
+    }
+</script>
+
+</html>
