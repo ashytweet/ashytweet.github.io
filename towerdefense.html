@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      margin: 0px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <img id="scream" width="7" height="492" src="btd map.jpg">
+</body>
+
+</html>
+<script>
+  // document.addEventListener("mousemove", mousemovecat)
+  var canvas = document.getElementById("canvas")
+  var ctx = canvas.getContext("2d")
+  var img // if you're using window.onload you have to create the image variable outside of the function so everyone can see it. it's a scope thing. 
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  var cx = 0
+  var cy = 620
+  var bspeed = 1
+  var speedx = bspeed
+  var speedy = 0
+  var distance = 0
+  // var cradius = []
+  // var cspeedx = []
+  // var cspeedy = []
+  // var color = []
+  var towerx = 700
+  var towery = 550
+  window.onload = function () {
+    /*
+    window.onload tells the page to wait to run this code until the entire page  has loaded.
+    what can happen is that the script runs before the image does, if you try to grab the 
+    image with document.getElementById and the image doesnt' exist, it won't grab anything. 
+    So just to be safe we always grab images in this on load. We also don't want to run the draw image until
+    we have the image loaded so I put the setInterval in here after the image variable.
+    */
+    img = document.getElementById("scream");
+    setInterval(circleanimation, 10)
+  }
+  function circleanimation() {
+    ctx.clearRect(0, 0, 1000000, 100000)
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    tower()
+    balloon()
+
+  }
+  function tower() {
+    //tank
+    ctx.fillStyle = "orange"
+    ctx.fillRect(towerx-50, towery-50, 100, 100)
+    ctx.fillStyle="red"
+    ctx.beginPath()
+    ctx.arc(towerx,towery,30,0,Math.PI*2)
+    ctx.fill()
+    var angle = Math.atan2(cy - towery, cx - towerx)
+        //bullets
+        ctx.strokeStyle="blue"
+    ctx.lineWidth=2
+    ctx.beginPath()
+    ctx.moveTo(towerx,towery)
+    ctx.lineTo(cx,cy)
+    ctx.stroke()
+    //barrel
+    ctx.strokeStyle = 'black'
+    ctx.lineWidth=10
+    ctx.fillText(angle * 180 / Math.PI, 700, 500)
+    ctx.beginPath()
+    ctx.moveTo(towerx,towery)
+    ctx.lineTo(Math.cos(angle)*52+towerx,Math.sin(angle)*52+towery)
+    ctx.stroke()
+
+
+  }
+
+  function balloon() {
+    ctx.beginPath()
+    ctx.fillStyle = "black"
+    ctx.arc(cx, cy, 20, 0, Math.PI * 2)
+    ctx.fill()
+    cx = cx + speedx
+    cy = cy + speedy
+    distance = distance + Math.abs(speedx) + Math.abs(speedy)
+    if (distance < 540) {
+      speedy = 0
+      speedx = bspeed
+    } else if (distance < 730) {
+      speedx = 0
+      speedy = -bspeed
+    } else if (distance < 1970) {
+      speedy = 0
+      speedx = bspeed
+    } else if (distance < 2220) {
+      speedx = 0
+      speedy = bspeed
+    } else if (distance < 2570) {
+      speedx = -bspeed
+      speedy = 0
+    } else if (distance < 2900) {
+      speedx = 0
+      speedy = bspeed
+    } else if (distance < 2970) {
+      cx = 2000
+      cy = 900
+      speedx = -bspeed
+      speedy = 0
+    } else if (distance < 3950) {
+      speedy = 0
+      speedx = -bspeed
+    } else if (distance < 4250) {
+      speedy = -bspeed
+      speedx = 0
+    } else if (distance < 4650) {
+      speedy = 0
+      speedx = bspeed
+    } else if (distance < 5040) {
+      speedy = -bspeed
+      speedx = 0
+    } else if (distance < 5550) {
+      speedy = 0
+      speedx = -bspeed
+    } else if (distance < 6000) {
+      speedy = -bspeed
+      speedx = 0
+    } else {
+      speedx = 0
+      speedy = 0
+    }
+  }
+
+</script>

@@ -1,4 +1,46 @@
 <!DOCTYPE html>
+<style>
+        .dropbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: ;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(223, 37, 37, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+</style>
 <html>
 
 <head>
@@ -8,7 +50,17 @@
 <body>
     <canvas id="canvas" width="2000" height="1020"></canvas>
 </body>
-
+<div class="dropdown">
+    <button class="dropbtn">Games</button>
+    <div class="dropdown-content">
+      <a href="bouncingbox.html">Bouncing box</a>
+      <a href="pancakeclicker.html">Pancake Clicker</a>
+      <a href="racecar.html">Race Cars</a>
+      <a href="sprite.html">Pokemon Walker</a>
+      <a href="circular-circle.html">Circle</a>
+      <a href="index.html">Home</a>
+    </div>
+  </div>
 </html>
 <script>
     var canvas = document.getElementById("canvas")
@@ -17,7 +69,7 @@
     //ctx.fillRect(453,345,457,498)
     var x = []
     var y = []
-    var speed = []
+    var speedx = []
     var speedy = []
     var color = []
     var ball = 1
@@ -33,7 +85,7 @@
         //code to create circles
         x.push(mousex)
         y.push(mousey)
-        speed.push(Math.random() * 30 - 20)
+        speedx.push(Math.random() * 30 - 20)
         speedy.push(Math.random() * 30 - 20)
         color.push(Math.random() * 360)
         radius.push(Math.random() * 90 + 10)
@@ -60,9 +112,9 @@
                     var c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
                     if (radius[i] + radius[j] >= c) { //if the circles radiuses are greater than the distance then they are coliding 
 
-                        tim = speed[i]
-                        speed[i] = speed[j]
-                        speed[j] = tim
+                        tim = speedx[i]
+                        speedx[i] = speedx[j]
+                        speedx[j] = tim
                         tim = speedy[j]
                         speedy[j] = speedy[i]
                         speedy[i] = tim
@@ -76,16 +128,16 @@
             ctx.arc(x[i], y[i], radius[i], 0, Math.PI * 2)
             ctx.fillStyle = "hsl(" + color[i] + ",100%,50%)"
             ctx.fill()
-            x[i] = x[i] + speed[i]
+            x[i] = x[i] + speedx[i]
             y[i] = y[i] + speedy[i]
 
             if (x[i] >= 1900) {
-                speed[i] = -Math.abs(speed[i])
+                speedx[i] = -Math.abs(speedx[i])
 
             }
 
             if (x[i] <= -1) {
-                speed[i] = Math.abs(speed[i])
+                speedx[i] = Math.abs(speedx[i])
 
             }
             if (y[i] >= 1000) {

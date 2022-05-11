@@ -63,9 +63,54 @@
     h2, h3 {
         margin: 0px;
     }
+    .dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: ;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(223, 37, 37, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
 <body>
-    
+<div class="dropdown">
+  <button class="dropbtn">Games</button>
+  <div class="dropdown-content">
+    <a href="bouncingbox.html">Bouncing box</a>
+    <a href="pancakeclicker.html">Pancake Clicker</a>
+    <a href="racecar.html">Race Cars</a>
+    <a href="sprite.html">Pokemon Walker</a>
+    <a href="circular-circle.html">Circle</a>
+    <a href="index.html">Home</a>
+  </div>
+</div>
+
     <div id="all-contents">
         <nav>
         

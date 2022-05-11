@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      margin: 0px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="1500" height="900"></canvas>
+</body>
+
+</html>
+<script>
+
+  document.addEventListener("mousemove", mousemovecat)
+  var canvas = document.getElementById("canvas")
+  var ctx = canvas.getContext("2d")
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  var mousex = 30
+  var mousey = 50
+  var mouseradius = 200
+  var cx = []
+  var cy = []
+  var cradius = []
+  var cspeedx = []
+  var cspeedy = []
+  var color = []
+  var scale = 1
+  var cnumber = 5000
+  /*
+1. stop the scaleing for all the circle 
+*/
+
+  function mousemovecat(event) {
+    mousex = event.clientX;
+    mousey = event.clientY;
+
+
+  }
+  function circleanimation() {
+    //  ctx.restore()
+    //  ctx.save()
+    //  ctx.scale(scale,scale)
+    ctx.clearRect(0, 0, 1000000, 100000)
+    ctx.beginPath()
+    ctx.fillStyle = "black"
+    ctx.arc(mousex, mousey, mouseradius * scale, 0, Math.PI * 2) //get rid of * scale
+    // ctx.fillStyle = "hsl(" + color[i] + ",100%,50%)"
+    ctx.fill()
+
+    for (let i = 0; i < cnumber; i++) {
+      if(cradius[i]< mouseradius){
+
+        ctx.fillStyle = "hsl(" + color[i] + ",100%,50%)"
+      //ctx.fillStyle = "hsl(" + cradius[i] + ",100%,50%)"
+      }else{
+        
+        ctx.fillStyle = "hsl(" + (color[i]+150) + ",100%,50%)"
+      }
+      ctx.beginPath()
+      ctx.arc(cx[i], cy[i], cradius[i] * scale, 0, Math.PI * 2)
+      ctx.fill()
+      cx[i] = cx[i] + (cspeedx[i])
+      cy[i] = cy[i] + (cspeedy[i])
+
+      if (cx[i] >= canvas.width + cradius[i]) {//right barrier for respawn 
+        respawn(i)
+
+      }
+      if (cy[i] >= canvas.height + cradius[i]) {//down barrier for respawn  
+        respawn(i)
+      }
+      if (cy[i] <= 0 + -cradius[i]) {//up barrier for respawn
+        respawn(i)
+      }
+      if (cradius[i] * scale < 2) {
+        respawn(i)
+      }
+      var a = cx[i] - mousex
+      var b = cy[i] - mousey
+
+      var distance = a * a + b * b
+      distance = Math.sqrt(distance)
+      ctx.fillStyle = "black"
+
+      if (mouseradius > 100) {
+        scale = 100 / mouseradius
+      }
+
+      if (cradius[i] * scale + mouseradius * scale >= distance) {//touch another circle
+
+
+        if (mouseradius > cradius[i]) { //scaleing or shrinking circles
+          mouseradius = mouseradius + 1
+          // cx[i] = Math.random() * -5000 - 200
+          // // cy[i] = Math.random() * 1060 - 20
+          // cradius[i] = cradius[i] - mouseradius / 100
+          // if (cradius[i] < 0) {
+            respawn(i)
+          // }
+        } else { //circle gets big
+          mouseradius = mouseradius - mouseradius / 500
+          cradius[i] = cradius[i] + mouseradius / 25
+          if (mouseradius < 0) {
+            mouseradius = 1
+          }
+        }
+      }
+      if (scale > 1) {
+        scale = 1
+      }
+
+    }
+    debug()
+
+  }
+
+
+  setInterval(circleanimation, 10)
+
+  for (let i = 0; i < cnumber; i++) {
+    cradius.push(Math.random() * 50 + 5)
+    cx.push(Math.random() * -canvas.width - cradius[i])
+    cy.push(Math.random() * canvas.height)
+    cspeedx.push(Math.random() * 5)
+    cspeedy.push(Math.random() * 2 - 1)
+    color.push(Math.random() * 90)
+  }
+
+  function debug() {
+    ctx.fillText(cx.length, 10, 10)
+    // ctx.fillText(distance, cx[i], cy[i])
+
+    for (let i = 0; i < cx.length; i++) {
+      ctx.fillText("x:" + Math.floor(cx[i]) + " y:" + Math.floor(cy[i]) + " sx:" + Math.floor(cspeedx[i]) + " sy:" + Math.floor(cspeedy[i]) + " r:" + Math.floor(cradius[i]), canvas.width - 200, 30 + 11 * i)
+
+    }
+  }
+
+  function respawn(index) {
+    cx[index] = (Math.random() * -canvas.width / 2 - cradius[index])
+    cy[index] = (Math.random() * canvas.height)
+    cradius[index] = Math.random() * mouseradius + mouseradius / 10
+    cspeedy[index] = Math.random() * 2 - 1
+    cspeedx[index] = Math.random() * 7 + (cspeedx[index] /1.4)
+    color[index] = Math.random()*90
+  }
+</script>

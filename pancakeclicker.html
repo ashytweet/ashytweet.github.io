@@ -4,7 +4,6 @@
 <head>
 
     <style>
-        
         p {
             clear: both;
         }
@@ -28,10 +27,11 @@
             float: left;
         }
 
-       .upgradeImage{
-           height:1em;
-           float:left;
-       }
+        .upgradeImage {
+            height: 1em;
+            float: left;
+        }
+
         #Upgradeplus2:hover {
             background-color: gray;
             color: floralwhite;
@@ -71,7 +71,7 @@
         }
 
         #Upgradeplus2 {
-            background-color:greenyellow;
+            background-color: greenyellow;
             color: darkorchid;
             font-size: 200%;
         }
@@ -89,7 +89,7 @@
 
         body {
             color: dodgerblue;
-            background-color:powderblue;
+            background-color: powderblue;
         }
 
 
@@ -116,13 +116,55 @@
         li a:hover {
             background-color: #111;
         }
-        .Info{
-            background-color:darkblue;
-            color:fuchsia;
+
+        .Info {
+            background-color: darkblue;
+            color: fuchsia;
             font-family: "Times New Roman", Fantasy, serif;
-            font-size: 20px; 
+            font-size: 20px;
             display: none;
-            position:absolute; 
+            position: absolute;
+        }
+
+        .dropbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: ;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(223, 37, 37, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
         }
     </style>
 
@@ -131,7 +173,17 @@
 </head>
 
 <body>
-    
+    <div class="dropdown">
+        <button class="dropbtn">Games</button>
+        <div class="dropdown-content">
+          <a href="bouncingbox.html">Bouncing box</a>
+          <a href="pancakeclicker.html">Pancake Clicker</a>
+          <a href="racecar.html">Race Cars</a>
+          <a href="sprite.html">Pokemon Walker</a>
+          <a href="circular-circle.html">Circle</a>
+          <a href="index.html">Home</a>
+        </div>
+      </div>
     <ul>
         <li><a class="active" href="index.html">Home</a></li>
         <li><a href="#news">News</a></li>
@@ -146,30 +198,30 @@
 
         <div id="Start">Stop</div>
 
-         
-        <div id="Upgradeplus2" >
-           
+
+        <div id="Upgradeplus2">
+
             <img class="upgradeImage" src="https://image.emojipng.com/542/10783542.jpg">
             Click Upgrade by 2 Cost = 50
-  <div class="Info" id="Infofor2">Clicks once per 10 sec</div>
-            
+            <div class="Info" id="Infofor2">Clicks once per 10 sec</div>
+
         </div>
 
 
         <div id="Upgradeplus10">
-            <img class="upgradeImage"  id="Brother" src="brother.jpg"> 
-            Click Upgrade by 10 Cost = 5000 
-        <div class="Info"  id="Infofor10">Your brothers make pancakes</div>
+            <img class="upgradeImage" id="Brother" src="brother.jpg">
+            Click Upgrade by 10 Cost = 5000
+            <div class="Info" id="Infofor10">Your brothers make pancakes</div>
         </div>
-        
-            <div id="Upgradeplus100">
-               <img class="upgradeImage" id="Furnace" src="furnace.jpg">
-                Click Upgrade by 100 Cost = 50000 
-                <div class="Info"  id="Infofor100">You have huge furnaces making pancakes</div>
-            </div>
+
+        <div id="Upgradeplus100">
+            <img class="upgradeImage" id="Furnace" src="furnace.jpg">
+            Click Upgrade by 100 Cost = 50000
+            <div class="Info" id="Infofor100">You have huge furnaces making pancakes</div>
+        </div>
 
     </div>
-   
+
 
 
 
@@ -216,8 +268,8 @@
     function update() {
 
 
-        NumberPressed = NumberPressed + (clickpersec /1000)
-        document.getElementById("pc").innerText = "Pancakes Clicked = " +Math.floor( NumberPressed)
+        NumberPressed = NumberPressed + (clickpersec / 1000)
+        document.getElementById("pc").innerText = "Pancakes Clicked = " + Math.floor(NumberPressed)
     }
 
 
@@ -225,30 +277,30 @@
     function increaseClick() {
 
         NumberPressed = NumberPressed + 1
-        document.getElementById("pc").innerText = "Pancakes Clicked = " +  Math.floor( NumberPressed)
+        document.getElementById("pc").innerText = "Pancakes Clicked = " + Math.floor(NumberPressed)
 
 
 
     }
-    function showupgradetotipfor2(){
-            document.getElementById("Infofor2").style.display="inline"
+    function showupgradetotipfor2() {
+        document.getElementById("Infofor2").style.display = "inline"
     }
-    function hideupgradetotipfor2(){
-        document.getElementById("Infofor2").style.display="none"
+    function hideupgradetotipfor2() {
+        document.getElementById("Infofor2").style.display = "none"
     }
-    function showupgradetotipfor10(){
-            document.getElementById("Infofor10").style.display="inline"
+    function showupgradetotipfor10() {
+        document.getElementById("Infofor10").style.display = "inline"
     }
-    function hideupgradetotipfor10(){
-        document.getElementById("Infofor10").style.display="none"
+    function hideupgradetotipfor10() {
+        document.getElementById("Infofor10").style.display = "none"
     }
-    function showupgradetotipfor100(){
-            document.getElementById("Infofor100").style.display="inline"
+    function showupgradetotipfor100() {
+        document.getElementById("Infofor100").style.display = "inline"
     }
-    function hideupgradetotipfor100(){
-        document.getElementById("Infofor100").style.display="none"
+    function hideupgradetotipfor100() {
+        document.getElementById("Infofor100").style.display = "none"
     }
-    
+
     function StopStartAutoclick() {
         if (Starttoggle === true) {
             document.getElementById("Start").innerText = "Start"
@@ -266,11 +318,11 @@
 
         if (NumberPressed >= increaseclickfor2cost) {
             Upgradeplus2 = true
-            clickpersec = clickpersec + costamountfor2 
+            clickpersec = clickpersec + costamountfor2
             NumberPressed = NumberPressed - increaseclickfor2cost
             document.getElementById("pc").innerText = "Pancakes Clicked =" + NumberPressed
             document.getElementById("Upgradeplus2").innerText = "Click Upgrade by 2 Cost =" + increaseclickfor2cost
-            increaseclickfor2cost = increaseclickfor2cost *2
+            increaseclickfor2cost = increaseclickfor2cost * 2
 
         } else {
             Upgradeplus2 = false
